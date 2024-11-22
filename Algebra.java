@@ -26,7 +26,7 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
-		if (x2 > 0){
+		if (x2 >= 0){
 			for(int i = 0; i < x2; i++){
 				x1 ++;
 			}
@@ -60,11 +60,15 @@ public class Algebra {
 
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
+		if (n == 0){
+			return 1;
+		}else{
 		int newPowX = x;
 		for (int i = 1; i < n; i++){
 			newPowX = times(newPowX, x);
 		}
 		return newPowX;
+	}
 	}
 
 	// Returns the integer part of x1 / x2 
