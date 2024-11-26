@@ -51,15 +51,26 @@ public class Algebra {
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
+		if (x1 ==0 || x2 == 0) {
+			return 0;
+		}
 		int newX = x1;
-		for(int i = 1; i < x2; i++){
-			newX = plus(newX, x1);
+		if (x2 > 0){
+			for(int i = 1; i < x2; i++){
+				newX = plus(newX, x1);
+			}
+		}else{
+			for (int j = 0; j<= -x2; j++){
+				newX = minus(newX, x1);
+			}
 		}
 		return newX;
 	}
-
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
+		if (n < 0){
+			return 0;
+		}
 		if (n == 0){
 			return 1;
 		}else{
@@ -74,6 +85,18 @@ public class Algebra {
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
 		int counter = 1;
+		int minusCounter = 0;
+		if (x1 == 0){
+			return 0;
+		}
+		if (x1 < 0){
+			x1 = minus(0, x1);
+			minusCounter ++;
+		}
+		if (x2 < 0) {
+			x2 = minus(0, x2);
+			minusCounter --;
+		}
 		int newDivX = x2;
 		while (newDivX < x1){
 			newDivX = plus(newDivX, x2);
@@ -81,6 +104,9 @@ public class Algebra {
 		}
 		if (newDivX > x1){
 			counter = minus(counter, 1);
+		}
+		if (minusCounter != 0){
+			return minus(0, counter);
 		}
 		return counter;
 	}
@@ -93,17 +119,11 @@ public class Algebra {
 
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
-		int leftLimit = 1; 
-		int rightlimit = x;
-		int sqrtResult = div(plus(leftLimit, rightlimit),2);
-		while ((pow(sqrtResult, 2) > x) || (minus(rightlimit, leftLimit) != 1)) {
-			sqrtResult = div(plus(leftLimit, rightlimit),2);
-			if(pow(sqrtResult, 2) > x){
-				rightlimit = sqrtResult;
-			}else{
-				leftLimit = sqrtResult;
-			}
+		int sqrtResult = 0;
+		while (pow(sqrtResult, 2) <= x){
+			sqrtResult ++;
 		}
+		sqrtResult = minus(sqrtResult, 1);
 		return sqrtResult;
 	}	  	  
 }
